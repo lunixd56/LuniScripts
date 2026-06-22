@@ -1,6 +1,3 @@
--- RaceLineScript.lua  (LocalScript)
--- Place inside: StarterPlayer > StarterPlayerScripts
-
 local Players           = game:GetService("Players")
 local RunService        = game:GetService("RunService")
 local UserInputService  = game:GetService("UserInputService")
@@ -8,8 +5,6 @@ local StarterGui        = game:GetService("StarterGui")
 
 local player = Players.LocalPlayer
 local mouse  = player:GetMouse()
-
-if player.Name ~= "Lunii_142" then return end
 
 -- ============================================================
 -- CONSTANTS & COLORS
