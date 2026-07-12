@@ -1,1 +1,624 @@
---[[ v1.0.0 https://wearedevs.net/obfuscator ]] return(function(...)local k={"\111\075\069\119\116\075\111\109\100\050\088\102\076\075\111\106\076\075\111\043\100\118\061\061";"\085\050\108\086\085\054\074\081\052\104\116\055\106\076\082\117\047\105\054\117\098\118\061\061";"\090\098\050\105","\111\085\088\051\090\118\061\061";"\077\083\066\053\119\100\120\051\055\047\085\105\055\054\066\110\114\084\097\097\119\051\048\056\065\106\099\103\118\070\068\106\089\066\068\118\076\049\069\086\054\112\089\107\104\050\101\069\106\102\104\051\081\078\061\061","\116\119\066\115","\056\043\109\071","\099\098\061\061";"\106\074\116\083\115\109\119\052\110\084\074\061","\054\112\085\070","\070\087\097\073\115\068\116\056\089\118\061\061";"\054\089\055\104","\119\100\071\121";"\086\111\051\114\118\065\087\098\114\085\073\114\118\068\101\073\076\122\078\061";"\113\097\070\105\101\106\116\112\102\048\115\070";"\048\088\077\084\049\113\067\066\115\076\081\082\109\111\120\099\082\053\051\086\057\079\054\087\057\107\048\050\074\101\049\082\106\097\051\066\070\099\054\115\097\121\069\086\086\109\087\087\055\083\100\072\097\121\075\069\108\102\051\072\070\103\121\089\048\084\050\061","\104\076\087\083\098\057\055\069\085\107\079\119\105\066\105\120\114\047\043\089\067\122\055\079\113\098\055\081\073\115\076\071\043\053\087\069\055\076\051\072\081\073\074\061";"\049\074\055\069\057\118\061\061","\120\056\043\105\049\101\089\065\121\079\105\061";"\100\114\055\051\106\102\090\054\057\112\068\051\049\089\089\084\102\080\073\070\073\103\106\081\049\118\061\061";"\120\043\073\121";"\076\107\099\104\082\109\070\043\049\052\077\061","\107\103\074\106\070\048\098\086","\106\048\048\115\102\116\052\082","\077\066\057\073\083\075\050\049","\077\051\071\065\056\048\113\061","\109\052\113\098","\115\101\088\088\048\081\090\109\048\111\056\115\114\071\099\109\080\083\067\052\099\100\055\119\073\119\066\084\118\098\061\061","\113\043\073\065\087\043\097\049\122\117\088\119\079\122\087\067\111\103\116\061";"\106\111\088\101","\086\108\112\071\097\047\049\098\109\114\053\108\083\067\085\077\051\105\104\082\053\119\074\061","\109\087\075\118\081\114\051\099\114\065\122\069\068\100\049\121\099\089\054\065\120\089\055\048\099\066\056\113\054\118\061\061","\049\081\054\118\057\052\080\113\114\048\105\061";"\071\101\081\102\056\097\050\090\113\052\118\061","\119\090\085\119\055\118\061\061","\087\084\101\109\090\068\100\061","\065\112\087\121";"\079\117\057\114\054\089\098\061","\056\098\110\085\048\105\122\082\075\098\061\061";"\122\050\067\081\117\047\043\099\120\112\084\082\082\102\050\104";"\090\082\074\054";"\100\117\075\083\088\048\078\082\120\105\061\061";"\081\081\069\066\081\116\084\084\114\101\071\077\112\077\098\099\087\088\113\075\087\105\061\061";"\088\085\087\111\079\065\116\109\087\085\099\079\114\085\101\051\114\118\061\061";"\056\098\112\118\116\052\054\081\116\078\061\061";"\081\101\054\112\083\110\048\052\051\108\104\075\114\118\083\114\114\105\078\085\080\121\102\104\065\106\103\088\043\078\061\061";"\053\074\070\056";"\079\057\054\084\107\121\112\099","\081\107\078\079\097\090\085\061","\048\075\080\086\073\055\066\072\120\105\061\061","\109\072\110\112\117\077\115\080\100\109\077\061";"\079\084\057\107";"\119\051\114\066\101\043\120\065\054\078\061\061";"\050\112\100\106\113\105\061\061","\100\101\075\109\066\113\069\053\122\056\074\089","\082\087\085\072\090\081\104\121\054\098\061\061";"\121\048\084\076\081\100\107\106\050\105\120\073";"\079\102\057\066\122\043\111\047\113\065\099\043\087\118\061\061","\113\055\067\103","\112\104\081\115","\074\121\075\079\052\107\083\078","\100\056\108\077\106\118\061\061";"\086\080\110\120\084\047\070\105\110\098\061\061","\084\117\099\120\113\098\061\061","\081\109\105\053\086\055\047\047\075\118\061\061";"\076\050\104\084\109\110\104\079\052\106\052\061";"\112\097\085\083\085\116\048\077\110\121\119\118\087\086\070\102\085\105\076\082\080\122\107\080\090\075\089\089\072\078\061\061","\077\067\075\098\052\102\075\086\099\055\052\061";"\090\055\100\061","\072\104\104\047\085\116\052\050\088\055\085\061";"\087\114\069\047\116\050\051\050\111\103\069\089\122\114\088\067\118\118\061\061","\118\068\101\102\113\084\088\102";"\055\112\079\052\048\047\065\069";"\066\079\107\119\067\087\107\067\114\088\069\119","\067\072\105\102\087\082\077\051\067\105\061\061","\067\075\072\107","\113\112\108\117","\110\110\071\050\070\105\061\061","\085\098\110\111\102\050\100\061","\083\119\114\117\054\117\111\110\073\118\061\061","\110\101\055\052\070\057\043\081\118\105\061\061","\102\121\066\051\054\078\061\061","\048\050\097\053\088\068\076\102\079\115\057\053\067\085\097\113","\075\118\047\112\086\098\057\083\100\071\086\097\081\097\105\053\112\043\071\067\120\053\099\083\113\122\088\084\118\050\099\057\073\082\073\074\084\071\049\061","";"\053\049\079\054\075\102\106\083\090\089\084\105\088\057\107\065\103\054\120\077\087\075\110\111\073\069\052\057\120\086\118\100";"\088\122\111\049\111\103\101\084\086\085\076\098\070\068\111\073\116\114\116\061";"\088\077\069\083","\120\085\082\098\049\078\061\061","\071\057\090\106\090\103\050\088\104\073\076\050\104\100\073\088\048\098\077\070\074\087\107\074\075\100\122\088\116\052\066\101\055\115\053\055\111\106\074\052\100\115\050\108\043\097\099\107\100\072\101\043\120\047\056\111\066\048\049\121\085\118\061\061";"\067\105\061\061","\048\116\122\120\084\115\101\071\074\068\075\049","\097\079\118\106\101\077\087\122\100\105\099\049\122\110\105\099\074\118\061\061","\101\099\090\057\054\055\081\104\090\112\109\048\043\078\061\061";"\076\115\051\120\067\055\069\066\113\102\087\104\079\068\097\114";"\115\105\061\061","\097\074\047\107";"\114\065\065\099\119\118\061\061";"\097\119\075\066\097\090\103\061";"\073\043\078\076";"\114\112\104\066\098\051\085\097\083\102\048\105\069\052\085\089\053\068\072\083\054\057\090\075\076\100\067\117\097\098\061\061";"\110\051\068\117\112\105\105\061","\104\049\084\076\067\080\043\061","\122\115\076\081\079\103\119\102\076\085\076\122\076\106\105\098","\073\053\071\074\047\070\074\067\084\119\071\116\048\112\070\076\084\104\043\111";"\107\043\082\078\057\117\047\110\049\111\047\075\077\113\069\076\067\104\120\109\119\113\071\065\099\049\069\098\101\098\061\061","\087\055\087\043\111\085\089\075\090\075\102\112\088\103\099\057\076\111\050\061";"\076\114\089\098\113\114\057\081";"\088\051\087\051\090\105\089\118\103\105\061\061","\107\051\085\043\109\105\061\061","\085\109\074\067\068\118\061\061","\082\106\105\100\098\069\065\097\088\101\113\061";"\056\106\087\077\074\105\061\061","\078\105\056\114\103\115\077\114\120\102\074\061";"\072\108\057\120";"\076\114\102\112\057\050\089\085\111\055\101\117\088\103\087\049\057\118\061\061","\057\122\089\055\086\118\061\061";"\065\102\068\088\080\088\075\056\116\097\103\061";"\086\080\100\115","\090\078\061\061";"\116\104\069\047\087\075\099\119";"\049\079\081\087\075\069\115\073\078\070\057\085\087\118\061\061";"\048\108\072\049\110\112\077\061";"\107\087\048\105\056\098\061\061","\050\108\083\106\070\098\116\080\113\086\077\061";"\097\076\101\066","\089\103\118\076";"\076\085\073\077\076\120\078\061","\088\069\105\101\099\105\061\061","\053\115\116\051\115\115\057\048\105\086\109\086\111\097\086\082\069\098\043\120\084\078\068\048";"\101\109\055\117\118\108\111\099\072\078\061\061";"\073\048\078\103";"\101\054\102\069";"\079\106\107\119\057\069\111\111\057\043\050\073\116\050\102\112\122\078\061\061","\082\114\108\089","\051\103\048\083\122\111\052\089\083\065\078\061";"\090\115\069\110\114\043\101\113\070\102\116\117\114\050\043\065\114\069\113\061";"\051\048\085\085\057\052\088\066\082\118\043\069";"\077\077\104\088\087\119\055\110","\085\104\089\050\122\069\097\055\070\056\101\085\076\104\073\085\088\084\070\061","\050\122\075\074";"\109\067\112\103\105\116\100\057\090\098\061\061";"\081\055\122\115","\057\099\099\103","\069\075\105\108";"\052\076\078\065\117\102\080\049\101\065\047\066\079\089\053\076\053\108\103\079\068\120\105\079\087\068\106\083\110\078\061\061";"\047\065\107\104\080\117\055\088","\101\078\061\061","\057\055\122\119\098\105\051\079\051\098\061\061";"\066\055\089\113\100\122\081\098\048\043\101\071\071\087\081\099\086\105\061\061";"\056\112\107\065\089\111\100\109\103\108\119\109\049\047\114\098\078\117\111\052\097\103\043\101\081\073\101\121\106\098\061\061";"\120\070\079\066\098\107\108\067\049\118\061\061","\083\098\061\061","\050\103\056\066\069\071\069\097\103\105\049\076\081\057\104\070\067\049\122\047\080\105\061\061";"\051\086\098\105\055\078\061\061","\070\072\075\106","\073\122\080\081\079\118\061\061","\113\065\099\047\113\065\069\103","\103\090\122\109\106\085\099\071\116\080\109\098\050\105\061\061","\098\114\067\070\048\098\061\061","\086\076\107\115";"\107\079\071\105\072\102\118\117\107\098\061\061","\057\069\090\111\118\105\049\067\090\078\061\061","\114\043\101\103\111\120\087\086\113\104\049\117\111\043\102\107\090\118\061\061";"\099\110\121\084\108\115\077\106\054\087\071\099\102\079\081\089\110\069\074\065\083\078\061\061";"\119\076\085\081\066\107\077\061","\075\082\109\069\083\119\108\050\102\051\118\061","\116\075\069\051\116\120\070\061","\090\070\082\047\121\065\066\084\122\104\107\116\083\050\100\061";"\089\067\106\054\116\105\061\061";"\069\114\074\086\057\084\053\115\118\112\056\052\067\107\070\112\108\080\080\110\074\098\050\061","\083\069\084\117\085\065\067\078\119\049\090\057","\122\109\088\079\101\078\061\061","\103\107\071\079\065\081\090\120\103\075\085\043\053\103\056\056";"\112\098\061\061","\086\050\113\049\070\103\087\075\086\055\076\107\070\120\097\043";"\047\066\054\072\076\084\107\085\117\118\061\061","\087\075\117\065\085\068\069\097\114\075\073\101\070\084\085\109\122\117\078\061","\085\110\105\122\078\115\085\066\102\048\056\087\118\047\108\057\112\111\086\047\120\111\085\056\072\101\101\115\077\118\061\061","\110\110\085\086\110\077\089\051\106\097\103\061","\067\122\050\113\071\103\087\077\114\048\118\119\105\099\089\057\099\082\085\061","\110\111\047\071\084\074\102\074\065\078\061\061";"\110\110\103\066\103\102\065\049\082\117\051\106\086\067\109\102\052\078\061\061","\116\100\089\082","\114\057\081\106\081\054\049\061";"\109\099\048\050\072\105\061\061";"\084\087\087\075";"\056\104\086\102\054\103\112\056\087\099\051\121\073\053\119\076\065\085\106\076\111\114\097\066\054\083\068\106\113\080\076\103\043\103\052\114\107\118\061\061";"\080\055\116\089\075\078\061\061";"\120\057\079\070\118\118\061\061","\118\114\048\083\055\119\119\051\081\078\061\061","\114\075\073\081\087\068\111\115\122\106\097\098\086\055\087\050\067\055\070\061";"\098\076\083\121\067\104\108\102\068\118\050\082\048\086\067\120","\048\111\074\117\047\065\110\105\057\117\078\048\047\097\100\105\109\088\101\048\097\078\071\107\051\073\108\101\109\098\061\061","\085\075\099\056\076\050\069\056\048\114\089\106","\050\055\087\115","\098\043\116\118","\066\070\052\105\052\090\050\114\056\078\061\061","\109\087\047\085\112\085\085\119\112\118\061\061","\049\080\071\113\101\077\115\071\076\069\047\055\069\115\080\114";"\071\078\075\087\047\077\081\076\076\098\061\061";"\084\098\057\119\082\078\061\061";"\070\110\105\119\056\077\111\050\084\114\055\054\080\077\085\061";"\105\115\090\101\071\118\061\061","\073\087\101\073\072\047\103\061","\053\108\108\072\082\117\066\097\050\119\052\061","\073\080\101\076","\065\121\053\104\068\118\061\061";"\103\106\114\067\098\085\056\083\116\053\088\051\116\098\061\061";"\087\070\082\076\121\097\067\066\072\078\061\061","\087\065\069\119\087\118\061\061","\088\043\051\073\080\098\061\061";"\079\087\054\117\111\082\073\087\077\099\065\104\084\078\061\061","\115\049\078\108\077\088\118\072\070\118\061\061","\073\056\049\065","\112\055\112\068\077\078\097\111\083\105\061\061";"\072\089\066\057\054\071\102\117\081\052\078\061","\101\108\102\066\113\076\078\061";"\080\110\079\084\083\049\103\069\115\105\061\061","\056\049\117\089\051\088\047\117\080\098\061\061","\088\065\111\103\085\065\111\109\076\104\102\106\087\118\061\061","\116\099\102\116\069\111\056\076\065\116\098\061","\088\043\052\068\100\056\105\055";"\052\120\076\106\111\098\070\061";"\048\112\112\085\097\049\070\057\099\056\071\074\083\114\110\067","\089\090\101\110\079\098\061\061","\102\056\081\080";"\066\090\075\102\113\075\056\048\100\086\078\061";"\068\102\057\052\105\047\072\110\119\065\072\083\077\083\079\068\121\085\113\061","\055\069\102\098\090\118\061\061","\108\052\056\049\082\066\110\083\075\068\077\052","\050\113\086\116\117\068\116\078\048\118\061\061","\066\109\077\068\102\085\052\061","\051\047\105\066","\120\089\072\073";"\098\102\071\051\056\083\120\105\047\078\101\083\052\077\048\088";"\050\099\066\052\121\103\099\056\111\078\061\061";"\056\083\086\077\076\085\119\087\080\084\117\110\088\105\061\061";"\050\076\120\050\119\111\057\082\071\105\061\061";"\099\109\065\047","\083\047\115\103","\053\048\056\066\082\118\061\061";"\081\077\081\116\081\090\112\080\090\098\061\061","\075\047\049\078\067\073\078\053\047\098\061\061","\074\071\116\084\069\103\057\052\087\104\047\065\122\121\056\069\100\067\043\061","\083\087\113\081";"\097\070\065\073\073\053\083\080";"\114\082\049\102\087\051\097\052\097\087\049\061","\088\114\089\117\090\118\061\061";"\086\112\078\101","\103\122\101\074\082\118\061\061";"\078\070\048\072\116\098\061\061";"\078\088\118\099\114\073\075\077\114\117\053\074\048\104\078\061","\049\114\121\097\076\078\061\061";"\115\047\053\098\108\098\109\100\047\097\043\061","\076\102\051\100\085\055\076\101\067\069\057\075\111\050\102\119\118\105\061\061";"\118\065\099\052\090\068\100\056";"\082\105\068\109\113\108\072\113\082\108\057\083\099\112\116\089\086\054\074\050\086\114\073\051";"\087\057\099\119","\122\114\073\101\111\114\069\119\086\111\051\079\079\084\051\106\057\104\085\061","\120\088\101\049\081\086\052\067\073\043\048\076\116\048\065\067\074\118\061\061";"\107\079\067\121\066\077\052\061";"\097\103\087\118";"\054\054\055\102\116\086\055\111\054\079\054\071\101\048\065\050";"\110\055\050\118\101\120\073\107\084\088\057\117\055\078\061\061";"\099\110\048\113","\101\104\118\083\071\049\122\115\106\105\061\061";"\110\049\078\072\053\118\061\061","\077\075\119\122\120\112\071\107\077\073\116\061";"\070\122\099\112","\089\081\048\073\071\086\050\116\077\072\065\115\083\081\085\071\119\098\054\077\088\099\077\107\065\111\049\086\113\102\117\101\053\075\043\074";"\085\056\121\101\053\107\055\088\105\118\061\061";"\112\106\052\114\067\107\075\107\083\070\048\053\104\118\061\061";"\086\115\088\103\116\069\099\109\087\084\069\117\087\084\057\103";"\043\117\055\066\087\078\061\061","\048\102\077\068\057\120\101\051\057\104\088\081\070\075\088\069\118\098\061\061";"\116\074\051\111\079\104\084\055\051\057\114\065\048\110\076\077\069\083\069\089\085\110\049\074\076\043\052\071\117\117\085\061","\056\083\071\101\103\055\080\084\089\118\061\061";"\090\112\117\071\073\106\114\066\088\066\084\073\073\075\120\109\049\088\114\114\108\099\052\053\098\109\109\053\087\098\061\061","\090\050\049\051\109\053\079\084";"\083\047\067\116\074\088\111\085";"\101\054\056\085\047\081\070\081\100\108\116\043";"\052\106\097\112\097\098\061\061","\116\103\073\104\070\103\051\056\070\084\076\067\067\075\099\085\070\122\116\061","\067\111\066\088\117\082\088\106\101\054\054\053\107\067\083\065\122\078\061\061";"\086\075\087\118\116\065\069\079\086\103\076\109\048\084\101\117\070\118\061\061","\087\068\050\065\088\117\078\065\085\120\051\113\086\085\097\103\122\085\043\061";"\121\074\103\069\084\118\061\061","\108\100\118\111\076\111\069\068\072\047\101\054\086\113\057\089","\068\079\070\088\049\057\108\055\114\118\061\061","\105\075\116\098\066\072\097\116\069\054\102\111\085\105\117\077\121\051\116\072\069\110\076\055";"\118\065\099\052\090\068\101\122\087\084\069\117\087\114\089\106\087\085\119\102\048\084\107\083\086\114\089\103","\085\114\085\072";"\097\111\057\076\108\119\056\102\122\118\061\061","\098\072\085\065","\084\117\099\119\087\084\088\097\076\075\069\072\090\075\085\061","\066\097\088\054";"\065\106\111\121\077\114\051\099\077\078\113\099\052\121\068\051\056\078\061\061";"\068\101\051\118";"\121\057\054\088\065\071\077\055\104\050\068\048\069\077\077\114\066\048\114\102\114\067\050\114\057\117\083\114\121\051\109\067\055\118\088\075";"\108\043\105\075\083\109\085\103\114\101\116\061";"\086\053\103\109","\072\117\103\100\080\111\113\061","\080\118\066\104","\072\098\116\079\053\120\085\052\103\105\061\061","\082\074\100\084\075\068\052\078\111\049\110\085\105\073\047\103\120\113\100\118\110\118\061\061";"\120\086\050\079\083\053\087\053\117\111\066\043\049\098\061\061";"\100\098\061\061";"\066\076\117\111\104\077\102\097\083\079\072\081\121\079\097\100\120\105\061\061","\106\071\066\051";"\085\065\111\047\087\050\119\102\048\085\111\065\087\114\089\103";"\115\052\050\114\079\066\048\117\079\052\043\088\075\112\078\052\119\098\071\073","\087\121\051\073\055\116\052\106\122\098\061\061";"\098\107\107\067\113\098\061\061";"\088\114\073\075","\086\114\043\073\111\084\076\065\116\106\116\068\057\115\102\085\118\085\049\061","\087\116\072\113\116\078\061\061","\049\103\100\047\100\076\049\061";"\086\104\073\072\087\120\111\118\122\065\119\049\079\065\088\081\088\098\061\061";"\104\089\043\110\067\075\115\113\086\098\061\061";"\118\085\105\085\082\067\099\053\074\108\074\072","\118\078\061\061","\114\085\103\108\116\097\077\061";"\090\108\071\109\049\057\098\110";"\073\098\110\047\082\098\074\080\098\050\108\090\117\111\100\114\085\098\061\061";"\118\106\074\081";"\102\083\050\081";"\071\078\081\073\076\105\061\061","\083\081\115\066","\082\102\103\072\100\065\104\120\066\109\119\088";"\068\079\103\118\102\112\086\049\122\118\061\061","\118\073\113\079\086\115\117\105\082\069\098\056\047\088\051\117";"\116\104\111\119\090\068\087\102","\107\107\102\053\050\054\074\061";"\122\085\099\097\085\043\088\049\116\068\069\098\116\115\101\073\116\103\070\061","\055\079\082\110\071\080\122\087\047\082\055\122","\111\073\113\083\052\107\119\051\053\079\071\119\116\105\061\061","\119\097\113\118\081\087\105\107\105\118\114\104\099\105\061\061","\120\116\120\105\122\086\081\120\078\118\061\061";"\117\083\067\111\047\115\103\081\052\083\080\070\072\101\080\068","\122\080\118\047";"\052\043\054\073\057\105\061\061","\089\068\115\057\119\047\075\090\055\119\080\049\068\118\061\061","\077\066\057\047\065\114\072\089\097\078\061\061";"\112\098\057\103\120\048\105\057\108\078\061\061","\081\114\051\056\116\077\087\113\049\118\061\061","\078\101\121\053\066\101\075\053\080\065\043\090\107\048\103\072\110\055\083\079","\116\085\089\113\122\043\076\106\048\050\052\056\076\084\087\106\113\098\061\061";"\073\080\115\102\108\073\109\122\056\073\074\087\118\118\061\061","\101\088\121\052\118\085\107\048\057\118\051\075\071\070\115\071\106\089\070\115\105\105\061\061";"\089\086\076\053\048\103\107\056\108\105\061\061";"\122\065\081\114\101\120\120\068\070\098\078\047\081\078\061\061","\107\087\114\080\079\106\049\061","\116\103\049\065\057\068\111\069\111\104\087\049\113\117\087\073\116\075\113\061","\088\081\050\056";"\047\051\104\078";"\114\057\085\048\057\082\110\080","\051\107\088\052\115\105\082\104\116\103\113\082\066\079\114\043\113\086\043\043\068\111\115\049\119\057\069\076\083\078\061\061";"\053\122\118\074\070\104\088\099","\068\087\056\106\079\118\049\066\099\068\098\061","\043\089\112\050\081\078\121\050\065\070\089\048\088\098\061\061";"\104\102\065\109","\080\118\052\081","\065\103\049\122\114\078\061\061";"\085\055\100\114\052\078\061\061";"\110\099\109\113";"\054\056\103\089\115\089\071\099\090\053\118\061";"\076\075\099\047\076\114\117\072\087\084\100\061";"\087\115\107\049\111\050\089\072\118\122\101\085\085\122\097\069\122\055\105\061";"\054\071\082\104\101\119\072\105\043\107\119\066\083\098\061\061";"\043\047\057\090\111\118\113\086\120\116\053\047\118\083\118\122\112\083\112\083\112\106\105\061","\055\118\086\122\078\107\085\114\087\075\057\105\120\103\050\043\065\105\
+--[[
+    Car Controller para Mobile - FAB (V19)
+    - Exclusivo Client-Side (LocalScript).
+    - [Correção] Bug do Gás/W e AutoDrive pararem do nada (Inputs persistentes).
+    - [Correção] Bug do Pit Limiter travar a velocidade do carro permanentemente.
+    - [Adição] Botão de Boost (Left Shift) estilo segurar/soltar + maior que os outros.
+    - [Adição] Integração do Boost com o Webhook do Discord (com anti-spam).
+]]
+
+-- ========================================================
+-- CONFIGURAÇÃO DA WEBHOOK
+-- ========================================================
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1518611856758018175/hRhZwn6ihQmG3OzB_Rm5q45-4mGt9OCptgELnTh3lExcHwqE1f0kymg8-9DYznCysvg8" 
+
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+
+local player = Players.LocalPlayer
+local pGui = player:WaitForChild("PlayerGui")
+
+local savedPositions = {}
+local keysPressed = {}
+local originalCarSpeed = nil
+local lastBoostLogTime = 0
+
+if pGui:FindFirstChild("CarControls_FAB") then pGui.CarControls_FAB:Destroy() end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "CarControls_FAB"
+ScreenGui.Parent = pGui
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.DisplayOrder = 999
+
+-- ========================================================
+-- TEXTOS ESTÁTICOS (CRÉDITOS E TELEMETRIA)
+-- ========================================================
+local creditsText = Instance.new("TextLabel", ScreenGui)
+creditsText.Size = UDim2.new(0, 200, 0, 15)
+creditsText.Position = UDim2.new(0.5, 0, 1, -10)
+creditsText.AnchorPoint = Vector2.new(0.5, 1)
+creditsText.BackgroundTransparency = 1
+creditsText.Text = "Feito por luni56, qualquer bug me avisar"
+creditsText.TextColor3 = Color3.fromRGB(150, 150, 150)
+creditsText.TextSize = 10
+creditsText.Font = Enum.Font.Gotham
+creditsText.ZIndex = 1000
+
+local telemetryText = Instance.new("TextLabel", ScreenGui)
+telemetryText.Size = UDim2.new(0, 150, 0, 30)
+telemetryText.Position = UDim2.new(0, 10, 1, -10)
+telemetryText.AnchorPoint = Vector2.new(0, 1)
+telemetryText.BackgroundTransparency = 1
+telemetryText.Text = "Gravidade: --\nVelocidade: --"
+telemetryText.TextColor3 = Color3.fromRGB(200, 200, 200)
+telemetryText.TextSize = 10
+telemetryText.TextXAlignment = Enum.TextXAlignment.Left
+telemetryText.TextYAlignment = Enum.TextYAlignment.Bottom
+telemetryText.Font = Enum.Font.GothamBold
+telemetryText.ZIndex = 1000
+telemetryText.Visible = false
+
+-- ========================================================
+-- FUNÇÃO CORE DO WEBHOOK
+-- ========================================================
+local function enviarLogDiscord(mensagem)
+    if WEBHOOK_URL == "SUA_WEBHOOK_AQUI" or WEBHOOK_URL == "" then return end
+    
+    task.spawn(function()
+        local dados = {
+            ["content"] = "",
+            ["embeds"] = {{
+                ["title"] = "🚗 Notificação de Uso do Script",
+                ["description"] = mensagem,
+                ["color"] = 16753920, 
+                ["footer"] = {
+                    ["text"] = "Mobile Car Controller - FAB • " .. os.date("%X")
+                }
+            }}
+        }
+        
+        local json = HttpService:JSONEncode(dados)
+        local funcaoRequest = (request or http_request or syn and syn.request)
+        
+        if funcaoRequest then
+            funcaoRequest({
+                Url = WEBHOOK_URL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = json
+            })
+        else
+            pcall(function() HttpService:PostAsync(WEBHOOK_URL, json) end)
+        end
+    end)
+end
+
+enviarLogDiscord("👤 **" .. player.Name .. "** abriu o Script.")
+
+-- ========================================================
+-- 1. SISTEMA DE LOADING (5 SEGUNDOS COM FADE)
+-- ========================================================
+local function launchLoadingScreen()
+    local loadingFrame = Instance.new("Frame", ScreenGui)
+    loadingFrame.Name = "LoadingScreen"
+    loadingFrame.Size = UDim2.new(0, 320, 0, 75)
+    loadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    loadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    loadingFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+    loadingFrame.BackgroundTransparency = 1 
+    loadingFrame.ZIndex = 5000
+
+    local uiCorner = Instance.new("UICorner", loadingFrame)
+    uiCorner.CornerRadius = UDim.new(0.2, 0)
+
+    local loadingText = Instance.new("TextLabel", loadingFrame)
+    loadingText.Size = UDim2.new(1, -20, 1, -20)
+    loadingText.Position = UDim2.new(0.5, 0, 0.5, 0)
+    loadingText.AnchorPoint = Vector2.new(0.5, 0.5)
+    loadingText.BackgroundTransparency = 1
+    loadingText.Text = "Mobile Car Controller - FAB"
+    loadingText.TextColor3 = Color3.new(1, 1, 1)
+    loadingText.TextTransparency = 1 
+    loadingText.Font = Enum.Font.GothamBold
+    loadingText.TextScaled = true
+    loadingText.ZIndex = 5001
+
+    task.spawn(function()
+        local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local fadeInBg = TweenService:Create(loadingFrame, tweenInfo, {BackgroundTransparency = 0.2})
+        local fadeInText = TweenService:Create(loadingText, tweenInfo, {TextTransparency = 0})
+        
+        fadeInBg:Play()
+        fadeInText:Play()
+        
+        task.wait(4) 
+        
+        local fadeOutBg = TweenService:Create(loadingFrame, tweenInfo, {BackgroundTransparency = 1})
+        local fadeOutText = TweenService:Create(loadingText, tweenInfo, {TextTransparency = 1})
+        
+        fadeOutBg:Play()
+        fadeOutText:Play()
+        
+        fadeOutBg.Completed:Connect(function() loadingFrame:Destroy() end)
+    end)
+end
+
+launchLoadingScreen()
+
+-- ========================================================
+-- 2. SISTEMA DE NOTIFICAÇÃO LOCAL
+-- ========================================================
+local function showNotification(message)
+    local notifFrame = Instance.new("Frame", ScreenGui)
+    notifFrame.Size = UDim2.new(0, 320, 0, 50)
+    notifFrame.Position = UDim2.new(0.5, -160, -0.2, 0) 
+    notifFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+    notifFrame.BackgroundTransparency = 0.1
+    notifFrame.ZIndex = 2000
+    
+    Instance.new("UICorner", notifFrame).CornerRadius = UDim.new(0.2, 0)
+    Instance.new("UIStroke", notifFrame).Color = Color3.fromRGB(100, 100, 255)
+
+    local notifText = Instance.new("TextLabel", notifFrame)
+    notifText.Size = UDim2.new(1, -20, 1, 0)
+    notifText.Position = UDim2.new(0, 10, 0, 0)
+    notifText.BackgroundTransparency = 1
+    notifText.Text = message
+    notifText.TextColor3 = Color3.new(1, 1, 1)
+    notifText.Font = Enum.Font.GothamBold
+    notifText.TextScaled = true
+    notifText.ZIndex = 2001
+
+    local tweenIn = TweenService:Create(notifFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -160, 0.1, 0)})
+    local tweenOut = TweenService:Create(notifFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -160, -0.2, 0)})
+
+    tweenIn:Play()
+    task.delay(4, function()
+        tweenOut:Play()
+        tweenOut.Completed:Connect(function() notifFrame:Destroy() end)
+    end)
+end
+
+-- ========================================================
+-- 3. VARIÁVEIS DE ESTADO E SISTEMA DRAG
+-- ========================================================
+local isEditMode = false
+local systemEnabled = true
+local isInCar = false
+local controlButtons = {} 
+
+local autoDriveEnabled = false
+local pitLimiterEnabled = false
+
+local carBaseSpeed = 0
+local lastSeat = nil
+local lastActiveState = false 
+
+local function makeDraggable(hitbox, frameToMove)
+    local dragging = false
+    local dragInput, dragStart, startPos
+
+    hitbox.InputBegan:Connect(function(input)
+        if not isEditMode then return end
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frameToMove.Position
+            
+            local connection
+            connection = input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then 
+                    dragging = false 
+                    savedPositions[frameToMove.Name] = frameToMove.Position
+                    connection:Disconnect()
+                end
+            end)
+        end
+    end)
+
+    hitbox.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging and isEditMode then
+            local delta = input.Position - dragStart
+            frameToMove.Position = UDim2.new(
+                startPos.X.Scale, startPos.X.Offset + delta.X,
+                startPos.Y.Scale, startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+end
+
+-- ========================================================
+-- 4. CRIADORES DE INTERFACE (COM UIGRADIENT)
+-- ========================================================
+local function createButtonWithKeybind(name, text, pos, size, keyCode)
+    local frame = Instance.new("Frame", ScreenGui)
+    frame.Name = name
+    frame.Size = size
+    frame.Position = savedPositions[name] or pos
+    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    frame.BackgroundTransparency = 0.2
+    frame.ZIndex = 100
+    frame.Visible = false 
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0.25, 0)
+    
+    local stroke = Instance.new("UIStroke", frame)
+    stroke.Color = Color3.fromRGB(150, 150, 150)
+    stroke.Thickness = 2
+    
+    local gradient = Instance.new("UIGradient", frame)
+    gradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 15))
+    }
+    gradient.Rotation = 90
+
+    local txt = Instance.new("TextLabel", frame)
+    txt.Size = UDim2.new(1, -10, 1, -10)
+    txt.Position = UDim2.new(0.5, 0, 0.5, 0)
+    txt.AnchorPoint = Vector2.new(0.5, 0.5)
+    txt.Text = text
+    txt.TextColor3 = Color3.new(1, 1, 1)
+    txt.BackgroundTransparency = 1
+    txt.Font = Enum.Font.GothamBold
+    txt.TextScaled = true 
+    txt.ZIndex = 101
+
+    local hitbox = Instance.new("TextButton", frame)
+    hitbox.Size = UDim2.new(1, 0, 1, 0)
+    hitbox.BackgroundTransparency = 1
+    hitbox.Text = ""
+    hitbox.ZIndex = 105 
+
+    local resizeBtn = Instance.new("TextButton", frame)
+    resizeBtn.Name = "ResizeBtn"
+    resizeBtn.Size = UDim2.new(0, 30, 0, 30)
+    resizeBtn.Position = UDim2.new(1, -32, 0, 2)
+    resizeBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+    resizeBtn.Text = "➕"
+    resizeBtn.TextColor3 = Color3.new(1, 1, 1)
+    resizeBtn.Visible = false
+    resizeBtn.ZIndex = 110
+    Instance.new("UICorner", resizeBtn).CornerRadius = UDim.new(0.3, 0)
+
+    resizeBtn.MouseButton1Click:Connect(function()
+        local currentX = frame.Size.X.Offset
+        local nextX = currentX + 15
+        local nextY = (frame.Name == "Gas_Key") and (nextX * 1.2) or nextX
+        if nextX > 170 then nextX = 85; nextY = (frame.Name == "Gas_Key") and (85 * 1.2) or 85 end
+        frame.Size = UDim2.new(0, nextX, 0, nextY)
+    end)
+
+    hitbox.InputBegan:Connect(function(input)
+        if isEditMode then return end
+        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            gradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(80, 80, 80)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 40))
+            }
+            keysPressed[keyCode] = true
+            VirtualInputManager:SendKeyEvent(true, keyCode, false, game)
+            
+            -- Webhook exclusivo para o uso do Boost (com cooldown de 10 segundos)
+            if name == "Boost_Key" then
+                local tempoAtual = os.clock()
+                if tempoAtual - lastBoostLogTime > 10 then
+                    lastBoostLogTime = tempoAtual
+                    enviarLogDiscord("🚀 **" .. player.Name .. "** usou o Boost (Left Shift).")
+                end
+            end
+        end
+    end)
+
+    hitbox.InputEnded:Connect(function(input)
+        if isEditMode then return end
+        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            gradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 15))
+            }
+            keysPressed[keyCode] = nil
+            if keyCode == Enum.KeyCode.W and autoDriveEnabled then return end
+            VirtualInputManager:SendKeyEvent(false, keyCode, false, game)
+        end
+    end)
+
+    table.insert(controlButtons, frame)
+    makeDraggable(hitbox, frame)
+    return frame
+end
+
+local function createSmallToggle(name, text, pos)
+    local frame = Instance.new("Frame", ScreenGui)
+    frame.Name = name
+    frame.Size = UDim2.new(0, 60, 0, 40)
+    frame.Position = savedPositions[name] or pos
+    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    frame.BackgroundTransparency = 0.1
+    frame.ZIndex = 100
+    frame.Visible = false
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0.2, 0)
+    Instance.new("UIStroke", frame).Color = Color3.new(1, 1, 1)
+
+    local gradient = Instance.new("UIGradient", frame)
+    gradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 50)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))
+    }
+    gradient.Rotation = 90
+
+    local txt = Instance.new("TextLabel", frame)
+    txt.Size = UDim2.new(1, 0, 1, 0)
+    txt.Text = text
+    txt.TextColor3 = Color3.new(1, 1, 1)
+    txt.BackgroundTransparency = 1
+    txt.Font = Enum.Font.GothamBold
+    txt.TextSize = 10
+    txt.ZIndex = 101
+
+    local hitbox = Instance.new("TextButton", frame)
+    hitbox.Size = UDim2.new(1, 0, 1, 0)
+    hitbox.BackgroundTransparency = 1
+    hitbox.Text = ""
+    hitbox.ZIndex = 102
+
+    table.insert(controlButtons, frame)
+    makeDraggable(hitbox, frame)
+    return frame, txt, hitbox, gradient
+end
+
+-- ========================================================
+-- 5. LAYOUT DE CONTROLES PRINCIPAIS
+-- ========================================================
+local yPos = 0.65
+local baseSize = 95
+
+createButtonWithKeybind("Left_Key", "<", UDim2.new(0.08, 0, yPos, 0), UDim2.new(0, baseSize, 0, baseSize), Enum.KeyCode.A)
+createButtonWithKeybind("Right_Key", ">", UDim2.new(0.26, 0, yPos, 0), UDim2.new(0, baseSize, 0, baseSize), Enum.KeyCode.D)
+createButtonWithKeybind("Gas_Key", "▲", UDim2.new(0.82, 0, yPos - 0.08, 0), UDim2.new(0, baseSize, 0, baseSize * 1.2), Enum.KeyCode.W)
+createButtonWithKeybind("Brake_Key", "▼", UDim2.new(0.66, 0, yPos, 0), UDim2.new(0, baseSize, 0, baseSize), Enum.KeyCode.S)
+createButtonWithKeybind("Jump_Key", "PULO", UDim2.new(0.47, 0, yPos + 0.12, 0), UDim2.new(0, baseSize * 0.7, 0, baseSize * 0.7), Enum.KeyCode.Space)
+
+-- Toggles Superiores Direitos e o Novo Botão de Boost (Maior e posicionado perfeitamente)
+local autoFrame, autoTxt, autoHitbox, autoGrad = createSmallToggle("AutoDrive", "AUTO:\nOFF", UDim2.new(0.85, 0, yPos - 0.18, 0))
+local pitFrame, pitTxt, pitHitbox, pitGrad = createSmallToggle("PitLimiter", "PIT:\nOFF", UDim2.new(0.76, 0, yPos - 0.18, 0))
+createButtonWithKeybind("Boost_Key", "BOOST", UDim2.new(0.66, 0, yPos - 0.18, 0), UDim2.new(0, 75, 0, 45), Enum.KeyCode.LeftShift)
+
+-- ========================================================
+-- 6. INTERAÇÕES DOS TOGGLES (COM NOTIFICAÇÕES)
+-- ========================================================
+local function getCurrentSeat()
+    local char = player.Character
+    if char then
+        local hum = char:FindFirstChildOfClass("Humanoid")
+        if hum and hum.SeatPart and hum.SeatPart:IsA("VehicleSeat") then
+            return hum.SeatPart
+        end
+    end
+    return nil
+end
+
+autoHitbox.MouseButton1Click:Connect(function()
+    if isEditMode then return end
+    autoDriveEnabled = not autoDriveEnabled
+    
+    if autoDriveEnabled then
+        autoGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 180, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 80, 0))}
+        autoTxt.Text = "AUTO:\nON"
+        showNotification("🚗 Auto Drive Ativado!")
+        enviarLogDiscord("🤖 **" .. player.Name .. "** ativou o Auto Drive.")
+    else
+        autoGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 50)), ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))}
+        autoTxt.Text = "AUTO:\nOFF"
+        showNotification("🛑 Auto Drive Desativado.")
+    end
+    
+    VirtualInputManager:SendKeyEvent(autoDriveEnabled, Enum.KeyCode.W, false, game)
+end)
+
+pitHitbox.MouseButton1Click:Connect(function()
+    if isEditMode then return end
+    local seat = getCurrentSeat()
+    if not seat then return end
+    
+    local maxSpeedValue = seat:FindFirstChild("MaxSpeed")
+    
+    if pitLimiterEnabled then
+        pitLimiterEnabled = false
+        pitGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 50)), ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))}
+        pitTxt.Text = "PIT:\nOFF"
+        showNotification("💨 Pit Limiter Desligado!")
+        if maxSpeedValue and originalCarSpeed then
+            pcall(function() maxSpeedValue.Value = originalCarSpeed end)
+        end
+    else
+        local currentMax = maxSpeedValue and maxSpeedValue.Value or 100
+        if currentMax <= 30 then
+            showNotification("⚠️ Velocidade muito baixa para usar o PIT!")
+            return
+        end
+        originalCarSpeed = currentMax -- Trava o valor original correto de forma imutável
+        pitLimiterEnabled = true
+        pitGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 120, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(120, 60, 0))}
+        pitTxt.Text = "PIT:\nON"
+        showNotification("🏁 Pit Limiter Ligado!")
+        enviarLogDiscord("🏁 **" .. player.Name .. "** ativou o Pit Limiter.")
+    end
+end)
+
+-- ========================================================
+-- 7. BOTÕES DO TOPO
+-- ========================================================
+local function createTopButton(name, text, pos, color1, color2)
+    local frame = Instance.new("Frame", ScreenGui)
+    frame.Size = UDim2.new(0, 150, 0, 42)
+    frame.Position = savedPositions[name] or pos
+    frame.BackgroundColor3 = Color3.new(1, 1, 1)
+    frame.ZIndex = 100
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0.2, 0)
+    
+    local gradient = Instance.new("UIGradient", frame)
+    gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, color1), ColorSequenceKeypoint.new(1, color2)}
+    gradient.Rotation = 90
+    
+    local txt = Instance.new("TextLabel", frame)
+    txt.Size = UDim2.new(1, 0, 1, 0)
+    txt.Text = text
+    txt.TextColor3 = Color3.new(1, 1, 1)
+    txt.BackgroundTransparency = 1
+    txt.Font = Enum.Font.GothamBold
+    txt.TextSize = 13
+    txt.ZIndex = 101
+
+    local hitbox = Instance.new("TextButton", frame)
+    hitbox.Size = UDim2.new(1, 0, 1, 0)
+    hitbox.BackgroundTransparency = 1
+    hitbox.Text = ""
+    hitbox.ZIndex = 102
+
+    makeDraggable(hitbox, frame)
+    return frame, txt, hitbox, gradient
+end
+
+local toggleFrame, toggleTxt, toggleHitbox, toggleGrad = createTopButton("SystemToggle", "Controles: ON", UDim2.new(0.80, 0, 0.15, 0), Color3.fromRGB(0, 150, 0), Color3.fromRGB(0, 80, 0))
+toggleHitbox.MouseButton1Click:Connect(function()
+    systemEnabled = not systemEnabled
+    toggleTxt.Text = systemEnabled and "Controles: ON" or "Controles: OFF"
+    if systemEnabled then
+        toggleGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 150, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 80, 0))}
+        showNotification("✅ Controles do HUD Ligados.")
+    else
+        toggleGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 0, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 0, 0))}
+        showNotification("❌ Controles do HUD Desligados.")
+    end
+end)
+
+local editFrame, editTxt, editHitbox, editGrad = createTopButton("EditToggle", "Modo Edição: OFF", UDim2.new(0.80, 0, 0.25, 0), Color3.fromRGB(70, 70, 70), Color3.fromRGB(30, 30, 30))
+editHitbox.MouseButton1Click:Connect(function()
+    isEditMode = not isEditMode
+    editTxt.Text = isEditMode and "Modo Edição: ON" or "Modo Edição: OFF"
+    
+    if isEditMode then
+        editGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 120, 180)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 60, 100))}
+        showNotification("✏️ Modo de Edição Ativo. Arraste os botões!")
+    else
+        editGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(70, 70, 70)), ColorSequenceKeypoint.new(1, Color3.fromRGB(30, 30, 30))}
+        showNotification("🔒 Posições Salvas.")
+    end
+    
+    for _, btn in pairs(controlButtons) do
+        local stroke = btn:FindFirstChild("UIStroke")
+        local resize = btn:FindFirstChild("ResizeBtn")
+        if stroke then stroke.Color = isEditMode and Color3.new(0, 0.8, 1) or Color3.fromRGB(150, 150, 150) end
+        if resize then resize.Visible = isEditMode end
+    end
+end)
+
+-- ========================================================
+-- 8. LOOP HEARTBEAT CORE E TELEMETRIA (ANTI-BUG DE INPUTS)
+-- ========================================================
+RunService.Heartbeat:Connect(function()
+    local seat = getCurrentSeat()
+    local currentlyInCar = (seat ~= nil)
+
+    if currentlyInCar then
+        if seat ~= lastSeat then
+            lastSeat = seat
+            local maxSpeedValue = seat:FindFirstChild("MaxSpeed")
+            if maxSpeedValue and maxSpeedValue:IsA("ValueBase") then
+                carBaseSpeed = maxSpeedValue.Value
+            else
+                carBaseSpeed = 100
+            end
+            pitLimiterEnabled = false
+            lastActiveState = false
+        end
+
+        -- Repetição forçada de Inputs para impedir que soltem sozinhos "do nada"
+        if systemEnabled then
+            for key, _ in pairs(keysPressed) do
+                VirtualInputManager:SendKeyEvent(true, key, false, game)
+            end
+            if autoDriveEnabled then
+                VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.W, false, game)
+            end
+        end
+
+        local maxSpeedValue = seat:FindFirstChild("MaxSpeed")
+        if maxSpeedValue and maxSpeedValue:IsA("ValueBase") then
+            if pitLimiterEnabled then
+                local targetSpeed = (originalCarSpeed or 100) - 30
+                if targetSpeed < 10 then targetSpeed = 10 end
+                
+                pcall(function()
+                    if maxSpeedValue.Value ~= targetSpeed then
+                        maxSpeedValue.Value = targetSpeed
+                    end
+                end)
+            else
+                carBaseSpeed = maxSpeedValue.Value
+            end
+        end
+    end
+
+    if isInCar and not currentlyInCar then
+        local keysToRelease = {Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D, Enum.KeyCode.Space, Enum.KeyCode.LeftShift}
+        for _, key in ipairs(keysToRelease) do
+            VirtualInputManager:SendKeyEvent(false, key, false, game)
+            keysPressed[key] = nil
+        end
+        
+        autoDriveEnabled = false
+        autoGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 50)), ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))}
+        autoTxt.Text = "AUTO:\nOFF"
+        
+        pitLimiterEnabled = false
+        pitGrad.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 50)), ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))}
+        pitTxt.Text = "PIT:\nOFF"
+        
+        carBaseSpeed = 0
+        originalCarSpeed = nil
+        lastSeat = nil
+        lastActiveState = false
+    end
+
+    isInCar = currentlyInCar
+    local shouldShowCustom = systemEnabled and (isInCar or isEditMode)
+    
+    for _, btn in pairs(controlButtons) do
+        btn.Visible = shouldShowCustom
+    end
+    
+    -- Telemetria do Painel
+    if shouldShowCustom then
+        local gravidadeAtual = math.floor(workspace.Gravity)
+        local velocidadeExibida = math.floor(carBaseSpeed)
+        telemetryText.Text = "Gravidade: " .. gravidadeAtual .. "\nVelocidade: " .. velocidadeExibida
+        telemetryText.Visible = true
+    else
+        telemetryText.Visible = false
+    end
+
+    local touchGui = pGui:FindFirstChild("TouchGui")
+    if touchGui then
+        local frame = touchGui:FindFirstChild("TouchControlFrame")
+        if systemEnabled and isInCar then
+            touchGui.Enabled = false
+            if frame then frame.Position = UDim2.new(2, 0, 2, 0) end
+        else
+            touchGui.Enabled = true
+            if frame then frame.Position = UDim2.new(0, 0, 0, 0) end
+        end
+    end
+end)
