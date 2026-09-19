@@ -1,0 +1,487 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+local Debris = game:GetService("Debris")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Terrain = Workspace:WaitForChild("Terrain")
+
+local VehiclesFolder = Workspace:WaitForChild("Vehicles", 10) or Workspace
+
+-- Contêiner global estável
+local GlobalSprayPart = Workspace:FindFirstChild("GlobalSprayPart")
+if not GlobalSprayPart then
+	GlobalSprayPart = Instance.new("Part")
+	GlobalSprayPart.Name = "GlobalSprayPart"
+	GlobalSprayPart.Anchored = true
+	GlobalSprayPart.CanCollide = false
+	GlobalSprayPart.CanTouch = false
+	GlobalSprayPart.CanQuery = false
+	GlobalSprayPart.Transparency = 1
+	GlobalSprayPart.Size = Vector3.new(1, 1, 1)
+	GlobalSprayPart.CFrame = CFrame.new(0, 0, 0)
+	GlobalSprayPart.Parent = Workspace
+end
+
+-- ==========================================
+-- VARIÁVEIS DE CONTROLE GLOBAL
+-- ==========================================
+local sprayAtivado = true
+local sparksAtivado = true
+local fogAtivado = true
+local trailsAtivado = true
+
+local spraySizeConfig = 100
+local sprayForceConfig = 500
+local sparkMultiConfig = 1.0 
+local currentReflectance = 0.5 
+
+local pecasPista = {}
+local nomesAlvoPista = {["Street"] = true, ["Baseplate"] = true, ["Dirt"] = true}
+
+local rayParams = RaycastParams.new()
+rayParams.FilterType = Enum.RaycastFilterType.Exclude
+
+-- ==========================================
+-- 1. SISTEMA DE CÉU, NUVENS E NÉVOA
+-- ==========================================
+local sky = Lighting:FindFirstChildOfClass("Sky")
+if not sky then sky = Instance.new("Sky") sky.Parent = Lighting end
+sky.SkyboxBk, sky.SkyboxDn, sky.SkyboxFt, sky.SkyboxLf, sky.SkyboxRt, sky.SkyboxUp = 
+	"rbxassetid://1014431051", "rbxassetid://1014431051", "rbxassetid://1014431051", "rbxassetid://1014431051", "rbxassetid://1014431051", "rbxassetid://1014431051"
+
+local clouds = Terrain:FindFirstChildOfClass("Clouds")
+if not clouds then clouds = Instance.new("Clouds") clouds.Parent = Terrain end
+clouds.Density = 0.85
+clouds.Cover = 0.80
+clouds.Color = Color3.fromRGB(110, 115, 125)
+
+Lighting.FogColor = Color3.fromRGB(120, 125, 130)
+Lighting.FogStart = 10
+Lighting.FogEnd = 400 
+Lighting.ClockTime = 14 
+
+-- ==========================================
+-- 2. CRIAÇÃO DA INTERFACE (GUI)
+-- ==========================================
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "F1UltimateEnvironmentGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = PlayerGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 270, 0, 480) 
+mainFrame.Position = UDim2.new(0, 30, 0, 100)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+mainFrame.Active = true
+mainFrame.Parent = screenGui
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(0, 220, 0, 35)
+titleLabel.Position = UDim2.new(0, 12, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "F1 Pro Environment Settings"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 15
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.Parent = mainFrame
+
+local minBtn = Instance.new("TextButton")
+minBtn.Size = UDim2.new(0, 30, 0, 30)
+minBtn.Position = UDim2.new(1, -35, 0, 2)
+minBtn.BackgroundTransparency = 1
+minBtn.Text = "-"
+minBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
+minBtn.Font = Enum.Font.SourceSansBold
+minBtn.TextSize = 18
+minBtn.Parent = mainFrame
+
+local contentFrame = Instance.new("Frame")
+contentFrame.Size = UDim2.new(1, 0, 1, -35)
+contentFrame.Position = UDim2.new(0, 0, 0, 35)
+contentFrame.BackgroundTransparency = 1
+contentFrame.Parent = mainFrame
+
+local function criarBotaoAlternador(textoAtivado, textoDesativado, pos, estadoInicial, acao)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(1, -20, 0, 26)
+	btn.Position = pos
+	btn.Font = Enum.Font.SourceSansBold
+	btn.TextSize = 12
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
+	
+	local estado = estadoInicial
+	local function atualizarVisual()
+		btn.Text = estado and textoAtivado or textoDesativado
+		btn.BackgroundColor3 = estado and Color3.fromRGB(45, 140, 45) or Color3.fromRGB(160, 45, 45)
+	end
+	
+	btn.MouseButton1Click:Connect(function()
+		estado = not estado
+		atualizarVisual()
+		acao(estado)
+	end)
+	
+	atualizarVisual()
+	btn.Parent = contentFrame
+	return btn
+end
+
+criarBotaoAlternador("Spray Central: LIGADO", "Spray Central: DESLIGADO", UDim2.new(0, 10, 0, 5), sprayAtivado, function(v) sprayAtivado = v end)
+criarBotaoAlternador("Faíscas Dinâmicas: LIGADO", "Faíscas Dinâmicas: DESLIGADO", UDim2.new(0, 10, 0, 36), sparksAtivado, function(v) sparksAtivado = v end)
+criarBotaoAlternador("Marcas/Trilhas Pneu: LIGADO", "Marcas/Trilhas Pneu: DESLIGADO", UDim2.new(0, 10, 0, 67), trailsAtivado, function(v) trailsAtivado = v end)
+criarBotaoAlternador("Névoa Ambiente (Fog): LIGADO", "Névoa Ambiente: DESLIGADO", UDim2.new(0, 10, 0, 98), fogAtivado, function(s) 
+	fogAtivado = s
+	Lighting.FogEnd = s and (tonumber(contentFrame.FogInputBox.Text) or 400) or 999999
+end)
+
+local function criarInput(texto, pos, valorPadrao, nomeOpcional)
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.new(0, 140, 0, 25)
+	label.Position = pos
+	label.BackgroundTransparency = 1
+	label.Text = texto
+	label.TextColor3 = Color3.fromRGB(190, 190, 195)
+	label.Font = Enum.Font.SourceSans
+	label.TextSize = 13
+	label.TextXAlignment = Enum.TextXAlignment.Left
+	label.Parent = contentFrame
+
+	local input = Instance.new("TextBox")
+	input.Size = UDim2.new(0, 90, 0, 25)
+	input.Position = UDim2.new(1, -100, 0, pos.Y.Offset)
+	input.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+	input.Text = tostring(valorPadrao)
+	input.TextColor3 = Color3.fromRGB(255, 255, 255)
+	input.Font = Enum.Font.SourceSans
+	input.TextSize = 13
+	if nomeOpcional then input.Name = nomeOpcional end
+	input.Parent = contentFrame
+	Instance.new("UICorner", input).CornerRadius = UDim.new(0, 4)
+	return input
+end
+
+local sizeInput        = criarInput("Tamanho Spray:", UDim2.new(0, 10, 0, 140), 100)
+local forceInput       = criarInput("Força Spray:", UDim2.new(0, 10, 0, 170), 500)
+local sparkMultInput   = criarInput("Mult. Faíscas (0-5):", UDim2.new(0, 10, 0, 200), 1.0)
+local fogInput         = criarInput("Dist. Névoa (FogEnd):", UDim2.new(0, 10, 0, 240), 400, "FogInputBox")
+local cloudDensInput   = criarInput("Densidade Nuvens:", UDim2.new(0, 10, 0, 270), 0.85)
+local reflectInput     = criarInput("Reflexo Pista (0-1):", UDim2.new(0, 10, 0, 310), 0.5)
+local timeInput        = criarInput("Horário (0-24h):", UDim2.new(0, 10, 0, 340), 14)
+
+-- ==========================================
+-- 3. ARRASTAR E MINIMIZAR INTERFACE
+-- ==========================================
+local dragging, dragInput, dragStart, startPos
+mainFrame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true dragStart = input.Position startPos = mainFrame.Position
+		input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
+	end
+end)
+mainFrame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then dragInput = input end
+end)
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		local delta = input.Position - dragStart
+		mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+minBtn.MouseButton1Click:Connect(function()
+	contentFrame.Visible = not contentFrame.Visible
+	mainFrame.Size = contentFrame.Visible and UDim2.new(0, 270, 0, 480) or UDim2.new(0, 270, 0, 35)
+	minBtn.Text = contentFrame.Visible and "-" or "+"
+end)
+
+sizeInput.FocusLost:Connect(function() spraySizeConfig = tonumber(sizeInput.Text) or spraySizeConfig end)
+forceInput.FocusLost:Connect(function() sprayForceConfig = tonumber(forceInput.Text) or sprayForceConfig end)
+sparkMultInput.FocusLost:Connect(function() sparkMultiConfig = tonumber(sparkMultInput.Text) or sparkMultiConfig end)
+fogInput.FocusLost:Connect(function()
+	local num = tonumber(fogInput.Text)
+	if num and fogAtivado then Lighting.FogEnd = math.clamp(num, 10, 5000) end
+end)
+cloudDensInput.FocusLost:Connect(function()
+	local num = tonumber(cloudDensInput.Text)
+	if num then clouds.Density = math.clamp(num, 0, 1) end
+end)
+timeInput.FocusLost:Connect(function()
+	local num = tonumber(timeInput.Text)
+	if num then Lighting.ClockTime = math.clamp(num, 0, 24) end
+end)
+
+local function atualizarRefletividadePistas(novoValor)
+	currentReflectance = math.clamp(novoValor, 0, 1)
+	for i = #pecasPista, 1, -1 do
+		local part = pecasPista[i]
+		if part and part.Parent then part.Reflectance = currentReflectance else table.remove(pecasPista, i) end
+	end
+end
+reflectInput.FocusLost:Connect(function()
+	local num = tonumber(reflectInput.Text)
+	if num then atualizarRefletividadePistas(num) end
+end)
+
+local function checarEAdicionarPista(descendant)
+	if descendant:IsA("BasePart") and nomesAlvoPista[descendant.Name] then
+		table.insert(pecasPista, descendant)
+		descendant.Reflectance = currentReflectance
+	end
+end
+for _, desc in pairs(Workspace:GetDescendants()) do checarEAdicionarPista(desc) end
+Workspace.DescendantAdded:Connect(checarEAdicionarPista)
+
+-- ==========================================
+-- 4. FUNÇÕES DE SUPORTE GERADORES VISUAIS
+-- ==========================================
+local function configurarEmissorSpray(emitter)
+	emitter.Texture = "rbxasset://textures/particles/smoke_main.dds"
+	emitter.LightInfluence = 0.0
+	emitter.LightEmission = 0.1
+	emitter.Color = ColorSequence.new(Color3.fromRGB(235, 238, 242))
+	emitter.Lifetime = NumberRange.new(1.0, 1.8)
+	emitter.Drag = 1.8
+	emitter.Acceleration = Vector3.new(0, 3, 0)
+	emitter.SpreadAngle = Vector2.new(40, 20)
+	emitter.EmissionDirection = Enum.NormalId.Front
+	emitter.Enabled = true
+end
+
+local function configurarEmissorSparks(emitter)
+	emitter.Texture = "rbxasset://textures/particles/sparkles_main.dds"
+	emitter.LightInfluence = 0.0
+	emitter.LightEmission = 1.0
+	emitter.Color = ColorSequence.new(Color3.fromRGB(255, 170, 0), Color3.fromRGB(255, 240, 150))
+	emitter.Lifetime = NumberRange.new(0.15, 0.4)
+	emitter.Drag = 1.5 
+	emitter.Acceleration = Vector3.new(0, -40, 0)
+	emitter.SpreadAngle = Vector2.new(10, 10) 
+	emitter.EmissionDirection = Enum.NormalId.Back 
+	emitter.Enabled = true
+	emitter.Rate = 0 
+end
+
+local function configurarTrailPneu(trail, att0, att1)
+	trail.Attachment0 = att0
+	trail.Attachment1 = att1
+	trail.Color = ColorSequence.new(Color3.fromRGB(40, 40, 40))
+	
+	-- Ajuste solicitado: Muito mais sutil e transparente
+	trail.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.85),
+		NumberSequenceKeypoint.new(0.5, 0.95),
+		NumberSequenceKeypoint.new(1, 1)
+	})
+	
+	trail.Lifetime = 1.2 
+	trail.LightInfluence = 0.1
+	trail.Enabled = false
+end
+
+local function encontrarParteCentro(carModel)
+	if carModel.PrimaryPart then return carModel.PrimaryPart end
+	for _, name in ipairs({"Chassis", "MainPart", "Center", "DriveSeat", "VehicleSeat"}) do
+		local p = carModel:FindFirstChild(name, true) if p and p:IsA("BasePart") then return p end
+	end
+	return carModel:FindFirstChildWhichIsA("BasePart", true)
+end
+
+-- ==========================================
+-- 5. LOOP PRINCIPAL DE ATUALIZAÇÃO
+-- ==========================================
+local veiculosAtivos = {}
+local listaDeExclusaoRaycast = {}
+
+RunService.Heartbeat:Connect(function(dt)
+	table.clear(listaDeExclusaoRaycast)
+	table.insert(listaDeExclusaoRaycast, GlobalSprayPart)
+	table.insert(listaDeExclusaoRaycast, VehiclesFolder) 
+	for _, p in ipairs(Players:GetPlayers()) do
+		if p.Character then table.insert(listaDeExclusaoRaycast, p.Character) end
+	end
+	rayParams.FilterDescendantsInstances = listaDeExclusaoRaycast
+	
+	for _, carModel in ipairs(VehiclesFolder:GetChildren()) do
+		if carModel:IsA("Model") then
+			local data = veiculosAtivos[carModel]
+			
+			if not data or not data.Part or not data.Part.Parent then
+				local parteCentro = encontrarParteCentro(carModel)
+				if parteCentro then
+					if data then 
+						if data.AttCenter then Debris:AddItem(data.AttCenter, 2) end
+						if data.AttSparks then Debris:AddItem(data.AttSparks, 2) end
+						if data.AttBL0 then data.AttBL0:Destroy() end
+						if data.AttBL1 then data.AttBL1:Destroy() end
+						if data.AttBR0 then data.AttBR0:Destroy() end
+						if data.AttBR1 then data.AttBR1:Destroy() end
+					end
+					
+					local attCenter = Instance.new("Attachment") attCenter.Parent = GlobalSprayPart
+					local attSparks = Instance.new("Attachment") attSparks.Parent = GlobalSprayPart
+					
+					local emitCenter = Instance.new("ParticleEmitter") emitCenter.Name = "SprayC" emitCenter.Parent = attCenter configurarEmissorSpray(emitCenter)
+					local emitSparks = Instance.new("ParticleEmitter") emitSparks.Name = "Sparks" emitSparks.Parent = attSparks configurarEmissorSparks(emitSparks)
+					
+					local attBL0 = Instance.new("Attachment") attBL0.Parent = GlobalSprayPart
+					local attBL1 = Instance.new("Attachment") attBL1.Parent = GlobalSprayPart
+					local trailBL = Instance.new("Trail") trailBL.Parent = GlobalSprayPart configurarTrailPneu(trailBL, attBL0, attBL1)
+					
+					local attBR0 = Instance.new("Attachment") attBR0.Parent = GlobalSprayPart
+					local attBR1 = Instance.new("Attachment") attBR1.Parent = GlobalSprayPart
+					local trailBR = Instance.new("Trail") trailBR.Parent = GlobalSprayPart configurarTrailPneu(trailBR, attBR0, attBR1)
+					
+					local carSize = carModel:GetExtentsSize()
+					local sx = math.clamp(carSize.X, 4, 8)
+					local sz = math.clamp(carSize.Z, 10, 20)
+					
+					local sparkPoints = {
+						{ offset = CFrame.new(0, 0, 0), dir = -1, isTop = false, avgDist = nil },         
+						{ offset = CFrame.new(0, 0, -sz*0.35), dir = -1, isTop = false, avgDist = nil },  
+						{ offset = CFrame.new(0, 0, sz*0.35), dir = -1, isTop = false, avgDist = nil },   
+						{ offset = CFrame.new(-sx*0.35, 0, 0), dir = -1, isTop = false, avgDist = nil },  
+						{ offset = CFrame.new(sx*0.35, 0, 0), dir = -1, isTop = false, avgDist = nil },   
+						{ offset = CFrame.new(0, 0, 0), dir = 1, isTop = true, avgDist = nil },          
+						{ offset = CFrame.new(0, 0, -sz*0.35), dir = 1, isTop = true, avgDist = nil },   
+						{ offset = CFrame.new(0, 0, sz*0.35), dir = 1, isTop = true, avgDist = nil },    
+					}
+					
+					data = {
+						Part = parteCentro, 
+						CarSize = carSize,
+						AttCenter = attCenter, AttSparks = attSparks,
+						EmitCenter = emitCenter, EmitSparks = emitSparks,
+						AttBL0 = attBL0, AttBL1 = attBL1, TrailBL = trailBL,
+						AttBR0 = attBR0, AttBR1 = attBR1, TrailBR = trailBR,
+						SmoothedProgress = 0, SparkPoints = sparkPoints
+					}
+					veiculosAtivos[carModel] = data
+				end
+			end
+			
+			if data and data.Part then
+				local part = data.Part
+				local rootPart = part.AssemblyRootPart or part
+				local velLinear = rootPart.AssemblyLinearVelocity
+				local velocidade = velLinear.Magnitude
+				
+				-- 1. SPRAY CENTRAL DINÂMICO
+				local offsetZ = (part:IsA("VehicleSeat") or part.Name:lower():find("seat")) and 3.5 or 0
+				data.AttCenter.WorldCFrame = part.CFrame * CFrame.new(0, -part.Size.Y/2, offsetZ) * CFrame.Angles(0, math.pi, 0)
+				
+				local targetProgress = 0
+				if sprayAtivado and velocidade > 12 then targetProgress = math.clamp((velocidade - 12) / (150 - 12), 0, 1) end
+				local lerpFactor = (targetProgress > data.SmoothedProgress) and 10 or 2.5
+				data.SmoothedProgress = data.SmoothedProgress + (targetProgress - data.SmoothedProgress) * math.min(1, dt * lerpFactor)
+				
+				if data.SmoothedProgress > 0.01 then
+					local curva = math.pow(data.SmoothedProgress, 1.3)
+					local fMax = math.clamp(sprayForceConfig, 10, 1500)
+					local tMax = math.clamp(spraySizeConfig / 2, 5, 80)
+					local tamanhoAtual = math.max(1, tMax * data.SmoothedProgress)
+					
+					data.EmitCenter.Rate = fMax * curva
+					data.EmitCenter.Speed = NumberRange.new(3 + (18 * data.SmoothedProgress), 6 + (32 * data.SmoothedProgress))
+					data.EmitCenter.Size = NumberSequence.new({
+						NumberSequenceKeypoint.new(0, tamanhoAtual * 0.15),
+						NumberSequenceKeypoint.new(0.3, tamanhoAtual * 0.65),
+						NumberSequenceKeypoint.new(1, tamanhoAtual)
+					})
+					data.EmitCenter.Transparency = NumberSequence.new({
+						NumberSequenceKeypoint.new(0, math.clamp(0.98 - (0.25 * curva), 0.75, 0.98)),
+						NumberSequenceKeypoint.new(0.25, math.clamp(0.92 - (0.72 * curva), 0.20, 0.92)),
+						NumberSequenceKeypoint.new(1, 1)
+					})
+				else
+					data.EmitCenter.Rate = 0
+				end
+				
+				-- 2. CÁLCULO FÍSICO INTELIGENTE DE FAÍSCAS
+				if sparksAtivado and velocidade > 15 then
+					local py = math.max(rootPart.Size.Y / 2, 0.5)
+					local maxDist = py + 2.0 
+					
+					for _, sp in ipairs(data.SparkPoints) do
+						local originPos = (rootPart.CFrame * sp.offset).Position
+						local castDir = (rootPart.CFrame.UpVector * sp.dir) * maxDist
+						
+						local result = Workspace:Raycast(originPos, castDir, rayParams)
+						local currentDist = result and result.Distance or maxDist
+						local emitCount = 0
+						
+						if result then
+							if not sp.avgDist then sp.avgDist = currentDist end
+							local compression = sp.avgDist - currentDist
+							sp.avgDist = sp.avgDist + (currentDist - sp.avgDist) * (dt * 3)
+							
+							if compression > 0.08 then 
+								emitCount = math.clamp(math.floor(compression * 120), 2, 80)
+							end
+							
+							if emitCount > 0 and sp.isTop then
+								emitCount = emitCount * 4
+							end
+							
+							emitCount = math.floor(emitCount * sparkMultiConfig)
+							
+							if emitCount > 0 then
+								data.AttSparks.WorldCFrame = CFrame.lookAt(result.Position, result.Position + velLinear)
+								data.EmitSparks.Speed = NumberRange.new(10 + (velocidade * 0.2), 25 + (velocidade * 0.45))
+								data.EmitSparks:Emit(emitCount)
+							end
+						else
+							sp.avgDist = maxDist
+						end
+					end
+				end
+				
+				-- 3. TRILHAS UNIVERSAIS MATEMÁTICAS
+				local trailLigado = (trailsAtivado and velocidade > 15)
+				local rightVec = rootPart.CFrame.RightVector
+				local lookVec = rootPart.CFrame.LookVector
+				local upVec = rootPart.CFrame.UpVector
+				
+				local pCenter = rootPart.Position
+				local sx = math.clamp(data.CarSize.X, 4, 8)
+				local sz = math.clamp(data.CarSize.Z, 10, 20)
+				
+				local rearOffset = -(sz * 0.40) 
+				local sideOffset = (sx * 0.42)  
+				local dropY = -(data.CarSize.Y * 0.45) 
+				
+				local baseBL = pCenter + (lookVec * rearOffset) - (rightVec * sideOffset) + (upVec * dropY)
+				local baseBR = pCenter + (lookVec * rearOffset) + (rightVec * sideOffset) + (upVec * dropY)
+				
+				local w = 0.4 
+				data.AttBL0.WorldPosition = baseBL - rightVec * w
+				data.AttBL1.WorldPosition = baseBL + rightVec * w
+				data.TrailBL.Enabled = trailLigado
+				
+				data.AttBR0.WorldPosition = baseBR - rightVec * w
+				data.AttBR1.WorldPosition = baseBR + rightVec * w
+				data.TrailBR.Enabled = trailLigado
+			end
+		end
+	end
+	
+	for carModel, data in pairs(veiculosAtivos) do
+		if not carModel or not carModel.Parent or carModel.Parent ~= VehiclesFolder then
+			if data.AttCenter then Debris:AddItem(data.AttCenter, 2) end
+			if data.AttSparks then Debris:AddItem(data.AttSparks, 2) end
+			if data.AttBL0 then data.AttBL0:Destroy() end
+			if data.AttBL1 then data.AttBL1:Destroy() end
+			if data.TrailBL then data.TrailBL:Destroy() end
+			if data.AttBR0 then data.AttBR0:Destroy() end
+			if data.AttBR1 then data.AttBR1:Destroy() end
+			if data.TrailBR then data.TrailBR:Destroy() end
+			veiculosAtivos[carModel] = nil
+		end
+	end
+end)
