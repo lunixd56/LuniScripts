@@ -1,0 +1,657 @@
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- --- ATALHOS PADRÃO ---
+local hotkeys = {
+	SpeedUp = Enum.KeyCode.T,
+	SpeedDown = Enum.KeyCode.R,
+	DriftUp = Enum.KeyCode.G,
+	DriftDown = Enum.KeyCode.F
+}
+
+local isBinding = false
+local bindTarget = nil
+local bindButton = nil
+
+-- --- VALORES INICIAIS ---
+local currentSpeed = 25
+local currentDrift = 1.0
+
+local speedIncrement = 10
+local driftIncrement = 0.1
+local currentScale = 1.0
+
+local currentCar = nil
+local isMinimized = false
+
+-- --- CORES DO TEMA NEON / DARK ---
+local BG_COLOR = Color3.fromRGB(16, 16, 18)
+local TOP_BAR_COLOR = Color3.fromRGB(24, 24, 28)
+local ELEMENT_BG = Color3.fromRGB(28, 28, 34)
+local TEXT_PRIMARY = Color3.fromRGB(255, 255, 255)
+local TEXT_SECONDARY = Color3.fromRGB(150, 155, 170)
+local ACCENT_COLOR = Color3.fromRGB(0, 190, 255)
+local ACCENT_MINUS = Color3.fromRGB(255, 75, 75)
+
+-- --- INTERFACE PRINCIPAL ---
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PainelCarroProGui"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = playerGui
+
+-- Botão de Abrir Estilizado (🚗)
+local openButton = Instance.new("TextButton")
+openButton.Size = UDim2.new(0, 52, 0, 52)
+openButton.Position = UDim2.new(0.03, 0, 0.45, 0)
+openButton.BackgroundColor3 = BG_COLOR
+openButton.TextColor3 = ACCENT_COLOR
+openButton.Text = "🚗"
+openButton.TextSize = 24
+openButton.BorderSizePixel = 0
+openButton.ZIndex = 10
+openButton.Parent = screenGui
+
+local obCorner = Instance.new("UICorner")
+obCorner.CornerRadius = UDim.new(0, 14)
+obCorner.Parent = openButton
+
+local obStroke = Instance.new("UIStroke")
+obStroke.Color = ACCENT_COLOR
+obStroke.Thickness = 1.5
+obStroke.Parent = openButton
+
+-- Frame Principal
+local mainFrame = Instance.new("Frame")
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.Size = UDim2.new(0, 300, 0, 420)
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.BackgroundColor3 = BG_COLOR
+mainFrame.BorderSizePixel = 0
+mainFrame.Visible = false
+mainFrame.Parent = screenGui
+
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 16)
+local mainStroke = Instance.new("UIStroke")
+mainStroke.Color = Color3.fromRGB(45, 45, 55)
+mainStroke.Thickness = 1
+mainStroke.Parent = mainFrame
+
+local uiScale = Instance.new("UIScale")
+uiScale.Scale = currentScale
+uiScale.Parent = mainFrame
+
+-- Barra Superior de Arraste
+local dragBar = Instance.new("Frame")
+dragBar.BackgroundColor3 = TOP_BAR_COLOR
+dragBar.BorderSizePixel = 0
+dragBar.ZIndex = 1
+dragBar.Parent = mainFrame
+
+local dbCorner = Instance.new("UICorner")
+dbCorner.CornerRadius = UDim.new(0, 16)
+dbCorner.Parent = dragBar
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "  VEHICLE TUNER PRO"
+titleLabel.TextColor3 = TEXT_PRIMARY
+titleLabel.TextSize = 12
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.ZIndex = 2
+titleLabel.Parent = dragBar
+
+-- Botões de Controle Superiores
+local btnMinimize = Instance.new("TextButton")
+btnMinimize.BackgroundColor3 = ELEMENT_BG
+btnMinimize.TextColor3 = TEXT_PRIMARY
+btnMinimize.Text = "🗕"
+btnMinimize.Font = Enum.Font.GothamBold
+btnMinimize.TextSize = 12
+btnMinimize.BorderSizePixel = 0
+btnMinimize.ZIndex = 6
+btnMinimize.Parent = mainFrame
+Instance.new("UICorner", btnMinimize).CornerRadius = UDim.new(0, 6)
+
+local btnScaleMinus = Instance.new("TextButton")
+btnScaleMinus.BackgroundColor3 = ELEMENT_BG
+btnScaleMinus.TextColor3 = TEXT_SECONDARY
+btnScaleMinus.Text = "A-"
+btnScaleMinus.Font = Enum.Font.GothamBold
+btnScaleMinus.TextSize = 10
+btnScaleMinus.BorderSizePixel = 0
+btnScaleMinus.ZIndex = 6
+btnScaleMinus.Parent = mainFrame
+Instance.new("UICorner", btnScaleMinus).CornerRadius = UDim.new(0, 6)
+
+local btnScalePlus = Instance.new("TextButton")
+btnScalePlus.BackgroundColor3 = ELEMENT_BG
+btnScalePlus.TextColor3 = TEXT_SECONDARY
+btnScalePlus.Text = "A+"
+btnScalePlus.Font = Enum.Font.GothamBold
+btnScalePlus.TextSize = 10
+btnScalePlus.BorderSizePixel = 0
+btnScalePlus.ZIndex = 6
+btnScalePlus.Parent = mainFrame
+Instance.new("UICorner", btnScalePlus).CornerRadius = UDim.new(0, 6)
+
+-- --- CONTAINER PARA O MODO COMPACTO (EVITA QUE TUDO FIQUE JUNTO) ---
+local compactContainer = Instance.new("Frame")
+compactContainer.Size = UDim2.new(1, -120, 1, 0)
+compactContainer.Position = UDim2.new(0, 45, 0, 0)
+compactContainer.BackgroundTransparency = 1
+compactContainer.ZIndex = 5
+compactContainer.Visible = false
+compactContainer.Parent = mainFrame
+
+local compactLayout = Instance.new("UIListLayout")
+compactLayout.FillDirection = Enum.FillDirection.Horizontal
+compactLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+compactLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+compactLayout.SortOrder = Enum.SortOrder.LayoutOrder
+compactLayout.Padding = UDim.new(0, 14) -- Espaçamento fixo e limpo
+compactLayout.Parent = compactContainer
+
+
+-- --- CONTROLES DE VELOCIDADE ---
+local speedLabel = Instance.new("TextLabel")
+speedLabel.Size = UDim2.new(1, -30, 0, 20)
+speedLabel.Position = UDim2.new(0, 15, 0, 55)
+speedLabel.BackgroundTransparency = 1
+speedLabel.TextColor3 = TEXT_SECONDARY
+speedLabel.Text = "VELOCIDADE MÁXIMA"
+speedLabel.TextSize = 11
+speedLabel.Font = Enum.Font.GothamBold
+speedLabel.TextXAlignment = Enum.TextXAlignment.Left
+speedLabel.ZIndex = 4
+speedLabel.Parent = mainFrame
+
+local boxSpeed = Instance.new("TextBox")
+boxSpeed.Size = UDim2.new(0, 85, 0, 36)
+boxSpeed.BackgroundColor3 = ELEMENT_BG
+boxSpeed.TextColor3 = ACCENT_COLOR
+boxSpeed.Text = tostring(currentSpeed)
+boxSpeed.TextSize = 15
+boxSpeed.Font = Enum.Font.GothamBold
+boxSpeed.BorderSizePixel = 0
+boxSpeed.ZIndex = 5
+boxSpeed.LayoutOrder = 1
+boxSpeed.Parent = mainFrame
+
+local boxSpeedStroke = Instance.new("UIStroke")
+boxSpeedStroke.Color = Color3.fromRGB(50, 50, 65)
+boxSpeedStroke.Thickness = 1
+boxSpeedStroke.Parent = boxSpeed
+
+local btnSpeedPlus = Instance.new("TextButton")
+btnSpeedPlus.Size = UDim2.new(0, 38, 0, 36)
+btnSpeedPlus.BackgroundColor3 = ELEMENT_BG
+btnSpeedPlus.TextColor3 = Color3.fromRGB(85, 255, 140)
+btnSpeedPlus.Text = "+"
+btnSpeedPlus.TextSize = 18
+btnSpeedPlus.Font = Enum.Font.GothamBold
+btnSpeedPlus.BorderSizePixel = 0
+btnSpeedPlus.ZIndex = 5
+btnSpeedPlus.LayoutOrder = 2
+btnSpeedPlus.Parent = mainFrame
+Instance.new("UICorner", btnSpeedPlus).CornerRadius = UDim.new(0, 8)
+
+local btnSpeedMinus = Instance.new("TextButton")
+btnSpeedMinus.Size = UDim2.new(0, 38, 0, 36)
+btnSpeedMinus.BackgroundColor3 = ELEMENT_BG
+btnSpeedMinus.TextColor3 = ACCENT_MINUS
+btnSpeedMinus.Text = "−"
+btnSpeedMinus.TextSize = 18
+btnSpeedMinus.Font = Enum.Font.GothamBold
+btnSpeedMinus.BorderSizePixel = 0
+btnSpeedMinus.ZIndex = 5
+btnSpeedMinus.LayoutOrder = 3
+btnSpeedMinus.Parent = mainFrame
+Instance.new("UICorner", btnSpeedMinus).CornerRadius = UDim.new(0, 8)
+
+-- Multiplicador Speed
+local speedIncFrame = Instance.new("Frame")
+speedIncFrame.Size = UDim2.new(1, -30, 0, 35)
+speedIncFrame.Position = UDim2.new(0, 15, 0, 125)
+speedIncFrame.BackgroundColor3 = TOP_BAR_COLOR
+speedIncFrame.ZIndex = 4
+speedIncFrame.Parent = mainFrame
+Instance.new("UICorner", speedIncFrame).CornerRadius = UDim.new(0, 8)
+
+local lblSpdInc = Instance.new("TextLabel")
+lblSpdInc.Size = UDim2.new(0, 130, 1, 0)
+lblSpdInc.Position = UDim2.new(0, 12, 0, 0)
+lblSpdInc.BackgroundTransparency = 1
+lblSpdInc.TextColor3 = TEXT_SECONDARY
+lblSpdInc.Text = "Passo de Ajuste:"
+lblSpdInc.TextSize = 13
+lblSpdInc.Font = Enum.Font.Gotham
+lblSpdInc.TextXAlignment = Enum.TextXAlignment.Left
+lblSpdInc.ZIndex = 4
+lblSpdInc.Parent = speedIncFrame
+
+local boxSpeedInc = Instance.new("TextBox")
+boxSpeedInc.Size = UDim2.new(0, 60, 0, 24)
+boxSpeedInc.Position = UDim2.new(1, -72, 0.5, -12)
+boxSpeedInc.BackgroundColor3 = ELEMENT_BG
+boxSpeedInc.TextColor3 = TEXT_PRIMARY
+boxSpeedInc.Text = tostring(speedIncrement)
+boxSpeedInc.TextSize = 13
+boxSpeedInc.Font = Enum.Font.GothamBold
+boxSpeedInc.BorderSizePixel = 0
+boxSpeedInc.ZIndex = 5
+boxSpeedInc.Parent = speedIncFrame
+Instance.new("UICorner", boxSpeedInc).CornerRadius = UDim.new(0, 6)
+
+
+-- --- CONTROLES DE DERIVA ---
+local driftLabel = Instance.new("TextLabel")
+driftLabel.Size = UDim2.new(1, -30, 0, 20)
+driftLabel.Position = UDim2.new(0, 15, 0, 175)
+driftLabel.BackgroundTransparency = 1
+driftLabel.TextColor3 = TEXT_SECONDARY
+driftLabel.Text = "DERIVA / ATRITO (MÁX: 2.00)"
+driftLabel.TextSize = 11
+driftLabel.Font = Enum.Font.GothamBold
+driftLabel.TextXAlignment = Enum.TextXAlignment.Left
+driftLabel.ZIndex = 4
+driftLabel.Parent = mainFrame
+
+local boxDrift = Instance.new("TextBox")
+boxDrift.Size = UDim2.new(0, 85, 0, 36)
+boxDrift.BackgroundColor3 = ELEMENT_BG
+boxDrift.TextColor3 = ACCENT_COLOR
+boxDrift.Text = string.format("%.2f", currentDrift)
+boxDrift.TextSize = 15
+boxDrift.Font = Enum.Font.GothamBold
+boxDrift.BorderSizePixel = 0
+boxDrift.ZIndex = 5
+boxDrift.LayoutOrder = 4
+boxDrift.Parent = mainFrame
+
+local boxDriftStroke = Instance.new("UIStroke")
+boxDriftStroke.Color = Color3.fromRGB(50, 50, 65)
+boxDriftStroke.Thickness = 1
+boxDriftStroke.Parent = boxDrift
+
+local btnDriftPlus = Instance.new("TextButton")
+btnDriftPlus.Size = UDim2.new(0, 38, 0, 36)
+btnDriftPlus.BackgroundColor3 = ELEMENT_BG
+btnDriftPlus.TextColor3 = Color3.fromRGB(85, 255, 140)
+btnDriftPlus.Text = "+"
+btnDriftPlus.TextSize = 18
+btnDriftPlus.Font = Enum.Font.GothamBold
+btnDriftPlus.BorderSizePixel = 0
+btnDriftPlus.ZIndex = 5
+btnDriftPlus.LayoutOrder = 5
+btnDriftPlus.Parent = mainFrame
+Instance.new("UICorner", btnDriftPlus).CornerRadius = UDim.new(0, 8)
+
+local btnDriftMinus = Instance.new("TextButton")
+btnDriftMinus.Size = UDim2.new(0, 38, 0, 36)
+btnDriftMinus.BackgroundColor3 = ELEMENT_BG
+btnDriftMinus.TextColor3 = ACCENT_MINUS
+btnDriftMinus.Text = "−"
+btnDriftMinus.TextSize = 18
+btnDriftMinus.Font = Enum.Font.GothamBold
+btnDriftMinus.BorderSizePixel = 0
+btnDriftMinus.ZIndex = 5
+btnDriftMinus.LayoutOrder = 6
+btnDriftMinus.Parent = mainFrame
+Instance.new("UICorner", btnDriftMinus).CornerRadius = UDim.new(0, 8)
+
+-- Multiplicador Drift
+local driftIncFrame = Instance.new("Frame")
+driftIncFrame.Size = UDim2.new(1, -30, 0, 35)
+driftIncFrame.Position = UDim2.new(0, 15, 0, 245)
+driftIncFrame.BackgroundColor3 = TOP_BAR_COLOR
+driftIncFrame.ZIndex = 4
+driftIncFrame.Parent = mainFrame
+Instance.new("UICorner", driftIncFrame).CornerRadius = UDim.new(0, 8)
+
+local lblDrfInc = Instance.new("TextLabel")
+lblDrfInc.Size = UDim2.new(0, 130, 1, 0)
+lblDrfInc.Position = UDim2.new(0, 12, 0, 0)
+lblDrfInc.BackgroundTransparency = 1
+lblDrfInc.TextColor3 = TEXT_SECONDARY
+lblDrfInc.Text = "Passo de Ajuste:"
+lblDrfInc.TextSize = 13
+lblDrfInc.Font = Enum.Font.Gotham
+lblDrfInc.TextXAlignment = Enum.TextXAlignment.Left
+lblDrfInc.ZIndex = 4
+lblDrfInc.Parent = driftIncFrame
+
+local boxDriftInc = Instance.new("TextBox")
+boxDriftInc.Size = UDim2.new(0, 60, 0, 24)
+boxDriftInc.Position = UDim2.new(1, -72, 0.5, -12)
+boxDriftInc.BackgroundColor3 = ELEMENT_BG
+boxDriftInc.TextColor3 = TEXT_PRIMARY
+boxDriftInc.Text = tostring(driftIncrement)
+boxDriftInc.TextSize = 13
+boxDriftInc.Font = Enum.Font.GothamBold
+boxDriftInc.BorderSizePixel = 0
+boxDriftInc.ZIndex = 5
+boxDriftInc.Parent = driftIncFrame
+Instance.new("UICorner", boxDriftInc).CornerRadius = UDim.new(0, 6)
+
+
+-- --- ATALHOS VISUAIS ---
+local hotkeyFrame = Instance.new("Frame")
+hotkeyFrame.Size = UDim2.new(1, -30, 0, 110)
+hotkeyFrame.Position = UDim2.new(0, 15, 0, 295)
+hotkeyFrame.BackgroundTransparency = 1
+hotkeyFrame.ZIndex = 4
+hotkeyFrame.Parent = mainFrame
+
+local hotkeyTitle = Instance.new("TextLabel")
+hotkeyTitle.Size = UDim2.new(1, 0, 0, 20)
+hotkeyTitle.Position = UDim2.new(0, 0, 0, 0)
+hotkeyTitle.BackgroundTransparency = 1
+hotkeyTitle.TextColor3 = TEXT_SECONDARY
+hotkeyTitle.Text = "MAPEIO DE ATALHOS DO TECLADO"
+hotkeyTitle.TextSize = 10
+hotkeyTitle.Font = Enum.Font.GothamBold
+hotkeyTitle.TextXAlignment = Enum.TextXAlignment.Left
+hotkeyTitle.ZIndex = 4
+hotkeyTitle.Parent = hotkeyFrame
+
+local function createHotkeyRow(yOffset, labelText, actionKey, currentKeyName)
+	local row = Instance.new("Frame")
+	row.Size = UDim2.new(1, 0, 0, 34)
+	row.Position = UDim2.new(0, 0, 0, yOffset)
+	row.BackgroundColor3 = TOP_BAR_COLOR
+	row.ZIndex = 4
+	row.Parent = hotkeyFrame
+	Instance.new("UICorner", row).CornerRadius = UDim.new(0, 6)
+
+	local isLeft = yOffset < 60
+
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.new(0, 65, 1, 0)
+	label.Position = UDim2.new(0, isLeft and 10 or 140, 0, 0)
+	label.BackgroundTransparency = 1
+	label.TextColor3 = TEXT_PRIMARY
+	label.Text = labelText
+	label.TextSize = 11
+	label.TextXAlignment = Enum.TextXAlignment.Left
+	label.Font = Enum.Font.GothamMed
+	label.ZIndex = 4
+	label.Parent = row
+
+	local bindBtn = Instance.new("TextButton")
+	bindBtn.Size = UDim2.new(0, 45, 0, 24)
+	bindBtn.Position = UDim2.new(0, isLeft and 80 or 215, 0.5, -12)
+	bindBtn.BackgroundColor3 = ELEMENT_BG
+	bindBtn.TextColor3 = ACCENT_COLOR
+	bindBtn.Text = currentKeyName
+	bindBtn.TextSize = 11
+	bindBtn.Font = Enum.Font.GothamBold
+	bindBtn.BorderSizePixel = 0
+	bindBtn.ZIndex = 5
+	bindBtn.Parent = row
+	Instance.new("UICorner", bindBtn).CornerRadius = UDim.new(0, 5)
+
+	bindBtn.MouseButton1Click:Connect(function()
+		if isBinding then return end
+		isBinding = true
+		bindTarget = actionKey
+		bindButton = bindBtn
+		bindBtn.Text = "..."
+		bindBtn.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+		bindBtn.TextColor3 = TEXT_PRIMARY
+	end)
+end
+
+createHotkeyRow(25, "Vel +:", "SpeedUp", hotkeys.SpeedUp.Name)
+createHotkeyRow(25, "Vel -:", "SpeedDown", hotkeys.SpeedDown.Name)
+createHotkeyRow(65, "Derf +:", "DriftUp", hotkeys.DriftUp.Name)
+createHotkeyRow(65, "Derf -:", "DriftDown", hotkeys.DriftDown.Name)
+
+
+-- --- SISTEMA DINÂMICO DE ALTERNÂNCIA DE LAYOUTS ---
+local function updateLayout()
+	if isMinimized then
+		-- Modo Retângulo Compacto Ultra Organizado
+		mainFrame.Size = UDim2.new(0, 410, 0, 54)
+		dragBar.Size = UDim2.new(1, 0, 1, 0)
+		
+		titleLabel.Visible = false
+		speedLabel.Visible = false
+		driftLabel.Visible = false
+		speedIncFrame.Visible = false
+		driftIncFrame.Visible = false
+		hotkeyFrame.Visible = false
+		
+		-- Muda os donos dos botões para entrarem no gerenciador automático horizontal
+		boxSpeed.Parent = compactContainer
+		btnSpeedPlus.Parent = compactContainer
+		btnSpeedMinus.Parent = compactContainer
+		boxDrift.Parent = compactContainer
+		btnDriftPlus.Parent = compactContainer
+		btnDriftMinus.Parent = compactContainer
+		
+		compactContainer.Visible = true
+
+		-- Botões utilitários nos cantos sem flutuar por cima de nada
+		btnMinimize.Position = UDim2.new(0, 10, 0.5, -14)
+		btnMinimize.Size = UDim2.new(0, 28, 0, 28)
+		
+		btnScaleMinus.Position = UDim2.new(1, -66, 0.5, -14)
+		btnScaleMinus.Size = UDim2.new(0, 24, 0, 28)
+		
+		btnScalePlus.Position = UDim2.new(1, -36, 0.5, -14)
+		btnScalePlus.Size = UDim2.new(0, 24, 0, 28)
+		
+		btnMinimize.Text = "🗖"
+	else
+		-- Voltar ao Modo Expandido Lindo
+		mainFrame.Size = UDim2.new(0, 300, 0, 420)
+		dragBar.Size = UDim2.new(1, 0, 0, 40)
+		
+		compactContainer.Visible = false
+		
+		-- Devolve os botões para as coordenadas manuais da janela principal
+		boxSpeed.Parent = mainFrame
+		btnSpeedPlus.Parent = mainFrame
+		btnSpeedMinus.Parent = mainFrame
+		boxDrift.Parent = mainFrame
+		btnDriftPlus.Parent = mainFrame
+		btnDriftMinus.Parent = mainFrame
+
+		titleLabel.Visible = true
+		speedLabel.Visible = true
+		driftLabel.Visible = true
+		speedIncFrame.Visible = true
+		driftIncFrame.Visible = true
+		hotkeyFrame.Visible = true
+
+		titleLabel.Position = UDim2.new(0, 5, 0, 0)
+		titleLabel.Size = UDim2.new(1, -95, 1, 0)
+		
+		btnMinimize.Position = UDim2.new(1, -85, 0, 7)
+		btnMinimize.Size = UDim2.new(0, 24, 0, 26)
+		
+		btnScaleMinus.Position = UDim2.new(1, -57, 0, 7)
+		btnScaleMinus.Size = UDim2.new(0, 24, 0, 26)
+		
+		btnScalePlus.Position = UDim2.new(1, -29, 0, 7)
+		btnScalePlus.Size = UDim2.new(0, 24, 0, 26)
+
+		boxSpeed.Position = UDim2.new(0, 15, 0, 80)
+		btnSpeedPlus.Position = UDim2.new(0, 110, 0, 80)
+		btnSpeedMinus.Position = UDim2.new(0, 154, 0, 80)
+
+		boxDrift.Position = UDim2.new(0, 15, 0, 200)
+		btnDriftPlus.Position = UDim2.new(0, 110, 0, 200)
+		btnDriftMinus.Position = UDim2.new(0, 154, 0, 200)
+		
+		btnMinimize.Text = "🗕"
+	end
+end
+
+-- Gerar cantos arredondados nos inputs dinamicamente
+Instance.new("UICorner", boxSpeed).CornerRadius = UDim.new(0, 8)
+Instance.new("UICorner", boxDrift).CornerRadius = UDim.new(0, 8)
+
+updateLayout()
+
+
+-- --- ARRASTAR DE FORMA FLUIDA ---
+local function makeDraggable(guiObject, targetObject)
+	targetObject = targetObject or guiObject
+	local dragging, dragInput, dragStart, startPos
+
+	guiObject.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = targetObject.Position
+			
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	guiObject.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			local delta = input.Position - dragStart
+			local scale = uiScale.Scale
+			targetObject.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + (delta.X / scale), startPos.Y.Scale, startPos.Y.Offset + (delta.Y / scale))
+		end
+	end)
+end
+
+makeDraggable(openButton)
+makeDraggable(dragBar, mainFrame)
+
+openButton.MouseButton1Click:Connect(function() mainFrame.Visible = not mainFrame.Visible end)
+btnMinimize.MouseButton1Click:Connect(function() isMinimized = not isMinimized updateLayout() end)
+btnScalePlus.MouseButton1Click:Connect(function() currentScale = math.clamp(currentScale + 0.1, 0.5, 2.0) uiScale.Scale = currentScale end)
+btnScaleMinus.MouseButton1Click:Connect(function() currentScale = math.clamp(currentScale - 0.1, 0.5, 2.0) uiScale.Scale = currentScale end)
+
+
+-- --- ATUALIZADOR DO CARRO (NICKNAME & SPAWN) ---
+local vehiclesFolder = Workspace:WaitForChild("Vehicles", 10)
+
+local function applyModificationsToCar(car)
+	if not car or not car:IsA("Model") then return end
+
+	local isMine = false
+	if car.Name == player.Name then isMine = true end
+	
+	local ownerVal = car:FindFirstChild("Owner")
+	if ownerVal and (ownerVal:IsA("StringValue") or ownerVal:IsA("ObjectValue")) and ownerVal.Value == player.Name then
+		isMine = true
+	end
+
+	local char = player.Character
+	if char then
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if hum and hum.SeatPart and hum.SeatPart:IsA("VehicleSeat") then
+			if hum.SeatPart:IsDescendantOf(car) then isMine = true end
+		end
+	end
+
+	if isMine then
+		currentCar = car
+		if car.Name ~= player.Name then car.Name = player.Name end
+		if ownerVal then ownerVal.Value = player.Name end
+
+		local seat = car:FindFirstChild("VehicleSeat", true)
+		if seat and seat:IsA("VehicleSeat") then
+			local origOwner = seat:FindFirstChild("OriginalOwner")
+			if origOwner then origOwner.Value = player.Name end
+
+			local maxSpd = seat:FindFirstChild("MaxSpeed")
+			if maxSpd then maxSpd.Value = currentSpeed end
+		end
+
+		for _, part in ipairs(car:GetDescendants()) do
+			if part:IsA("BasePart") and (part.Name == "PhysicalWheel" or part.Parent.Name:find("Wheel")) then
+				part.CustomPhysicalProperties = PhysicalProperties.new(0.7, currentDrift, 0.5, 1, 1)
+			end
+		end
+	end
+end
+
+RunService.Heartbeat:Connect(function()
+	if vehiclesFolder then
+		for _, car in ipairs(vehiclesFolder:GetChildren()) do
+			applyModificationsToCar(car)
+		end
+	end
+end)
+
+if vehiclesFolder then
+	vehiclesFolder.ChildAdded:Connect(function(child)
+		task.wait(0.1)
+		applyModificationsToCar(child)
+	end)
+end
+
+
+-- --- SINCRONIZADORES DE NÚMEROS ---
+local function updateSpeed(newSpeed)
+	currentSpeed = math.max(0, newSpeed)
+	boxSpeed.Text = tostring(currentSpeed)
+end
+
+local function updateDrift(newDrift)
+	currentDrift = math.clamp(newDrift, 0, 2)
+	boxDrift.Text = string.format("%.2f", currentDrift)
+end
+
+boxSpeed.FocusLost:Connect(function() updateSpeed(tonumber(boxSpeed.Text) or currentSpeed) end)
+boxDrift.FocusLost:Connect(function() updateDrift(tonumber(boxDrift.Text) or currentDrift) end)
+boxSpeedInc.FocusLost:Connect(function() speedIncrement = tonumber(boxSpeedInc.Text) or speedIncrement boxSpeedInc.Text = tostring(speedIncrement) end)
+boxDriftInc.FocusLost:Connect(function() driftIncrement = tonumber(boxDriftInc.Text) or driftIncrement boxDriftInc.Text = tostring(driftIncrement) end)
+
+btnSpeedPlus.MouseButton1Click:Connect(function() updateSpeed(currentSpeed + speedIncrement) end)
+btnSpeedMinus.MouseButton1Click:Connect(function() updateSpeed(currentSpeed - speedIncrement) end)
+btnDriftPlus.MouseButton1Click:Connect(function() updateDrift(currentDrift + driftIncrement) end)
+btnDriftMinus.MouseButton1Click:Connect(function() updateDrift(currentDrift - driftIncrement) end)
+
+
+-- --- CAPTURA DE TECLAS ---
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if isBinding and bindTarget and bindButton then
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			hotkeys[bindTarget] = input.KeyCode
+			bindButton.Text = input.KeyCode.Name
+			bindButton.BackgroundColor3 = ELEMENT_BG
+			bindButton.TextColor3 = ACCENT_COLOR
+			
+			isBinding = false
+			bindTarget = nil
+			bindButton = nil
+		end
+		return
+	end
+
+	if gameProcessed then return end 
+
+	if input.KeyCode == hotkeys.SpeedUp then
+		updateSpeed(currentSpeed + speedIncrement)
+	elseif input.KeyCode == hotkeys.SpeedDown then
+		updateSpeed(currentSpeed - speedIncrement)
+	elseif input.KeyCode == hotkeys.DriftUp then
+		updateDrift(currentDrift + driftIncrement)
+	elseif input.KeyCode == hotkeys.DriftDown then
+		updateDrift(currentDrift - driftIncrement)
+	end
+end)
